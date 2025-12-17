@@ -558,6 +558,28 @@ ros2 launch digital_twin_examples sensor_simulation.launch.py
 ros2 topic echo /robot/lidar_scan sensor_msgs/msg/LaserScan
 ```
 
+### Exercise 1: Multi-Sensor Setup
+Configure a humanoid robot with:
+- 2D LiDAR sensor with 180° FOV
+- RGB-D camera with 60° FOV
+- 9-DOF IMU
+- Joint state publisher
+
+### Exercise 2: Sensor Data Analysis
+- Subscribe to all sensor topics
+- Analyze the data rates and formats
+- Verify temporal synchronization between sensors
+
+### Exercise 3: Perception Pipeline Implementation
+- Create a ROS 2 node that subscribes to multiple sensors
+- Implement basic sensor fusion
+- Publish fused data for AI processing
+
+### Exercise 4: AI Module Integration
+- Prepare sensor data in a format suitable for a neural network
+- Implement preprocessing pipeline
+- Validate data quality and format
+
 ## Summary
 
 In this chapter, you learned about simulating various sensors (LiDAR, depth cameras, IMUs) and connecting them to ROS 2 systems. You now understand how sensor data flows into perception pipelines and how to prepare this data for AI modules. This completes the Digital Twin Simulation module, where you've learned about physics simulation, environment building, and sensor simulation for humanoid robots.
