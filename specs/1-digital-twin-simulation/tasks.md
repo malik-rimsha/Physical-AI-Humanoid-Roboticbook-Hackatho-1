@@ -109,14 +109,14 @@ description: "Task list for Digital Twin Simulation documentation module"
 
 ### Implementation for User Story 4
 
-- [ ] T027 [P] [US4] Create chapter-3-sensor-simulation.md with sensor simulation content
-- [ ] T028 [P] [US4] Add content about simulating LiDAR sensors with realistic point cloud data
-- [ ] T029 [US4] Create content about simulating depth cameras with realistic depth maps
-- [ ] T030 [US4] Add content about simulating IMU sensors with realistic data
-- [ ] T031 [US4] Document sensor data flow into ROS 2 systems
-- [ ] T032 [US4] Include ROS 2 interface examples based on contracts/ros2_interfaces.yaml
-- [ ] T033 [US4] Add content about preparing perception pipelines for AI modules
-- [ ] T034 [US4] Create practical exercises for sensor simulation and data flow
+- [x] T027 [P] [US4] Create chapter-3-sensor-simulation.md with sensor simulation content
+- [x] T028 [P] [US4] Add content about simulating LiDAR sensors with realistic point cloud data
+- [x] T029 [US4] Create content about simulating depth cameras with realistic depth maps
+- [x] T030 [US4] Add content about simulating IMU sensors with realistic data
+- [x] T031 [US4] Document sensor data flow into ROS 2 systems
+- [x] T032 [US4] Include ROS 2 interface examples based on contracts/ros2_interfaces.yaml
+- [x] T033 [US4] Add content about preparing perception pipelines for AI modules
+- [x] T034 [US4] Create practical exercises for sensor simulation and data flow
 
 **Checkpoint**: All user stories should now be independently functional
 
