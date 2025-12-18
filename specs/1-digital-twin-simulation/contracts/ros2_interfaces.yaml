@@ -1,0 +1,60 @@
+# ROS 2 Interface Contracts for Digital Twin Simulation
+
+## Overview
+This document defines the ROS 2 interfaces used in the digital twin simulation module for humanoid robots.
+
+## Sensor Data Topics
+
+### LiDAR Sensor
+- **Topic**: `/robot/lidar_scan`
+- **Type**: `sensor_msgs/LaserScan`
+- **Description**: 2D laser scan data from virtual LiDAR sensor
+- **Publish Rate**: 10 Hz
+- **Frame**: `laser_frame`
+
+### Depth Camera
+- **Topic**: `/robot/depth_camera/depth/image_raw`
+- **Type**: `sensor_msgs/Image`
+- **Description**: Raw depth image data
+- **Publish Rate**: 30 Hz
+- **Frame**: `depth_camera_frame`
+
+### IMU Sensor
+- **Topic**: `/robot/imu/data`
+- **Type**: `sensor_msgs/Imu`
+- **Description**: Inertial measurement unit data
+- **Publish Rate**: 100 Hz
+- **Frame**: `imu_frame`
+
+## Robot State Topics
+
+### Joint States
+- **Topic**: `/robot/joint_states`
+- **Type**: `sensor_msgs/JointState`
+- **Description**: Current joint positions, velocities, and efforts
+- **Publish Rate**: 50 Hz
+
+### Robot Transform
+- **Topic**: `/tf` and `/tf_static`
+- **Type**: `tf2_msgs/TFMessage`
+- **Description**: Robot transforms and coordinate frames
+- **Publish Rate**: 50 Hz
+
+## Service Interfaces
+
+### Robot Control
+- **Service**: `/robot/velocity_controller/commands`
+- **Type**: `std_msgs/Float64MultiArray`
+- **Description**: Send velocity commands to robot joints
+
+### Simulation Control
+- **Service**: `/gazebo/reset_simulation`
+- **Type**: `std_srvs/Empty`
+- **Description**: Reset the Gazebo simulation
+
+## Action Interfaces
+
+### Navigation
+- **Action**: `/robot/navigate_to_pose`
+- **Type**: `nav2_msgs/NavigateToPose`
+- **Description**: Send navigation goals to the robot
