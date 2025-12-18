@@ -67,6 +67,12 @@ Other approaches maintain separate modules for vision, language, and action but 
 ### Foundation Model Approach
 Recent advances use large foundation models that have been pre-trained on massive datasets and then adapted for robotic tasks. These models often provide the best balance of performance and generalization.
 
+## VLA System Architecture
+
+![VLA System Architecture](/img/vla-module/vla-architecture.png)
+
+The diagram above illustrates the key components of a Vision-Language-Action system, showing how visual perception, language understanding, and action execution are integrated into a cohesive framework.
+
 ## Key Challenges and Considerations
 
 ### Safety and Validation
@@ -84,6 +90,50 @@ Ensuring that visual, linguistic, and action representations align properly rema
 ## Future Directions
 
 VLA systems continue to evolve with advances in foundation models, multimodal learning, and embodied AI. Future developments may include more sophisticated reasoning capabilities, better handling of physical constraints, and more natural human-robot interaction patterns.
+
+## Practical Examples
+
+### Example 1: Object Retrieval Task
+A simple VLA system implementation for retrieving objects:
+
+```python
+# Example of a VLA system processing a command
+def process_vla_command(command, robot_state):
+    # 1. Vision: Identify objects in the environment
+    objects = perceive_environment()
+
+    # 2. Language: Parse the command "bring me the red cup"
+    intent = parse_language_command(command)
+
+    # 3. Action: Execute the retrieval
+    if intent.action == "retrieve" and intent.object_type == "cup":
+        target_object = find_object_by_attributes(objects,
+                                                color=intent.color,
+                                                type=intent.object_type)
+        return execute_grasp_action(target_object)
+
+    return None
+```
+
+### Example 2: Navigation with Language Understanding
+A VLA system understanding spatial language:
+
+```python
+# Processing spatial commands like "go to the left of the table"
+def process_spatial_command(command):
+    # Parse spatial relationships from language
+    spatial_info = extract_spatial_relationships(command)
+
+    # Map to visual landmarks
+    landmarks = identify_landmarks_in_environment()
+
+    # Plan navigation based on spatial understanding
+    target_location = compute_target_from_spatial_relationship(
+        spatial_info, landmarks
+    )
+
+    return execute_navigation_to_location(target_location)
+```
 
 ## Summary
 

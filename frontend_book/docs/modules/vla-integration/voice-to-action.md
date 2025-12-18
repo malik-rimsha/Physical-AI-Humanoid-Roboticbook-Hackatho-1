@@ -22,6 +22,10 @@ graph LR
     E --> F[ROS 2 Action Execution]
 ```
 
+![Voice Processing Pipeline](/img/vla-module/voice-pipeline.png)
+
+The diagram above shows the complete voice processing pipeline from audio input to ROS 2 action execution, highlighting the key components and data flow.
+
 ### Setting Up Whisper for Robotics
 ```python
 import whisper
@@ -204,6 +208,120 @@ Implement noise reduction and audio preprocessing for reliable performance.
 
 ### Privacy Considerations
 Handle voice data appropriately, especially in personal or sensitive environments.
+
+## Practical Examples
+
+### Example 1: Voice Command Processing Pipeline
+Complete implementation of a voice command processing system:
+
+```python
+import whisper
+import rospy
+from std_msgs.msg import String
+from geometry_msgs.msg import Pose
+
+class VoiceCommandProcessor:
+    def __init__(self):
+        # Initialize Whisper model
+        self.whisper_model = whisper.load_model("base")
+
+        # Initialize ROS publishers for different action types
+        self.nav_publisher = rospy.Publisher('/move_base_simple/goal', Pose, queue_size=1)
+        self.cmd_publisher = rospy.Publisher('/robot_command', String, queue_size=1)
+
+    def process_voice_command(self, audio_data):
+        # Step 1: Speech-to-text with Whisper
+        result = self.whisper_model.transcribe(audio_data)
+        text_command = result["text"]
+
+        # Step 2: Intent classification
+        intent = self.classify_intent(text_command)
+
+        # Step 3: Parameter extraction
+        params = self.extract_parameters(text_command)
+
+        # Step 4: Action mapping and execution
+        self.execute_action(intent, params)
+
+    def classify_intent(self, command):
+        # Simple intent classification based on keywords
+        if any(word in command.lower() for word in ["go to", "move to", "navigate"]):
+            return "NAVIGATE"
+        elif any(word in command.lower() for word in ["pick", "grasp", "take"]):
+            return "GRASP"
+        elif any(word in command.lower() for word in ["stop", "halt", "pause"]):
+            return "STOP"
+        return "UNKNOWN"
+
+    def execute_action(self, intent, params):
+        if intent == "NAVIGATE":
+            target_pose = self.create_pose_from_params(params)
+            self.nav_publisher.publish(target_pose)
+```
+
+### Example 2: ROS 2 Action Mapping
+Mapping classified intents to ROS 2 actions:
+
+```python
+from rclpy.action import ActionClient
+from nav2_msgs.action import NavigateToPose
+import rclpy
+
+class IntentMapper:
+    def __init__(self):
+        self.node = rclpy.create_node('intent_mapper')
+        self.nav_client = ActionClient(self.node, NavigateToPose, 'navigate_to_pose')
+
+    def map_intent_to_ros_action(self, intent, params):
+        if intent.intent_type == "NAVIGATE_TO_LOCATION":
+            return self.execute_navigation_action(params)
+        elif intent.intent_type == "GRASP_OBJECT":
+            return self.execute_manipulation_action(params)
+        # Add more mappings as needed
+        return False
+
+    def execute_navigation_action(self, params):
+        goal_msg = NavigateToPose.Goal()
+        goal_msg.pose.header.frame_id = 'map'
+        goal_msg.pose.pose.position.x = params['x']
+        goal_msg.pose.pose.position.y = params['y']
+        # ... set orientation, etc.
+
+        self.nav_client.wait_for_server()
+        return self.nav_client.send_goal_async(goal_msg)
+```
+
+## Troubleshooting
+
+### Common Voice Recognition Issues
+
+**Issue**: Whisper fails to recognize commands in noisy environments
+- **Solution**: Implement noise reduction preprocessing or use Whisper's built-in robustness features
+- **Alternative**: Use beamforming microphones to improve signal-to-noise ratio
+
+**Issue**: Misrecognition of technical terms or robot-specific commands
+- **Solution**: Fine-tune Whisper model on domain-specific vocabulary or use prompting techniques
+- **Alternative**: Implement a post-processing correction system based on robot context
+
+### Intent Classification Problems
+
+**Issue**: Intent classifier frequently misclassifies similar commands
+- **Solution**: Improve training data with more examples of ambiguous cases
+- **Alternative**: Implement confidence thresholds and human clarification requests
+
+**Issue**: Parameter extraction fails for complex sentence structures
+- **Solution**: Use more sophisticated NLP models or rule-based parsing
+- **Alternative**: Implement multiple parsing strategies with fallbacks
+
+### Action Mapping Failures
+
+**Issue**: Valid intents fail to map to appropriate ROS 2 actions
+- **Solution**: Ensure complete mapping table between all possible intents and ROS 2 actions
+- **Alternative**: Implement a default action for unmapped intents with error reporting
+
+**Issue**: Action parameters are incorrectly formatted for ROS 2
+- **Solution**: Implement parameter validation and conversion functions
+- **Alternative**: Use ROS 2 action interfaces with automatic type checking
 
 ## Summary
 

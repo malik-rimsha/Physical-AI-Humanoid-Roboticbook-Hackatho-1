@@ -20,6 +20,10 @@ Low-Level Action Execution
 Robot Control
 ```
 
+![Cognitive Planning Flow](/img/vla-module/cognitive-planning-flow.png)
+
+The diagram above illustrates the complete cognitive planning flow, showing how high-level goals are decomposed by LLMs into executable actions with feedback loops for adaptive behavior.
+
 ### Task Decomposition with LLMs
 
 LLMs excel at breaking down complex goals into manageable subtasks. For example, the high-level goal "Set the table for dinner" might be decomposed into:
@@ -239,6 +243,163 @@ Advanced systems incorporate learning mechanisms:
 - **Hybrid approaches**: Combining LLMs with traditional planning methods
 - **Simulation training**: Pre-training in simulation environments
 - **Federated learning**: Sharing learned behaviors across robot populations
+
+## Best Practices
+
+### LLM-Based Planning Considerations
+
+**Prompt Engineering**
+- Use clear, structured prompts with explicit instructions
+- Include examples of desired output format
+- Specify constraints and safety requirements in prompts
+- Test prompts with edge cases to ensure robustness
+
+**Validation and Safety**
+- Always validate LLM-generated plans against safety constraints
+- Implement multiple layers of validation before execution
+- Maintain human oversight capabilities for critical decisions
+- Log all planning decisions for audit and debugging purposes
+
+**Performance Optimization**
+- Cache frequently used planning patterns to reduce LLM calls
+- Use smaller, specialized models for routine tasks
+- Implement planning hierarchies to break complex tasks into manageable pieces
+- Monitor computational requirements and adjust accordingly
+
+### Integration Best Practices
+
+**Multi-Modal Integration**
+- Ensure consistent state representation across vision, language, and action systems
+- Implement robust error handling when one modality fails
+- Use confidence scores to determine when to request human assistance
+- Design for graceful degradation when components are unavailable
+
+**Human-Robot Interaction**
+- Provide clear feedback about the robot's understanding and planned actions
+- Implement clarification requests when commands are ambiguous
+- Maintain context across multi-turn interactions
+- Design for intuitive, natural communication patterns
+
+## Practical Examples
+
+### Example 1: LLM-Based Task Planning Implementation
+A complete implementation of LLM-based cognitive planning:
+
+```python
+import openai
+from typing import List, Dict, Any
+
+class CognitivePlanner:
+    def __init__(self, llm_client):
+        self.llm_client = llm_client
+
+    def plan_task(self, goal: str, robot_capabilities: List[str],
+                  environment_state: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Generate a sequence of actions to achieve the specified goal
+        """
+        prompt = f"""
+        You are a cognitive planning system for a humanoid robot. Your task is to
+        decompose the following goal into executable steps.
+
+        GOAL: {goal}
+
+        ROBOT CAPABILITIES: {robot_capabilities}
+
+        ENVIRONMENTAL STATE: {environment_state}
+
+        Please provide a sequence of actions that the robot can execute to achieve this goal.
+        Each action should be specific and executable within the robot's capabilities.
+        Consider:
+        1. Physical constraints of the robot
+        2. Safety requirements
+        3. Environmental obstacles
+        4. Logical sequence of operations
+
+        Format your response as a JSON list of action dictionaries with keys:
+        - "action": the action type
+        - "parameters": parameters for the action
+        - "description": human-readable description
+        """
+
+        response = self.llm_client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.1
+        )
+
+        # Parse the LLM response into structured actions
+        action_sequence = self.parse_llm_response(response.choices[0].message.content)
+        return action_sequence
+
+    def parse_llm_response(self, response_text: str) -> List[Dict[str, Any]]:
+        # Implementation to parse LLM response into structured action sequence
+        # This would include error handling, validation, etc.
+        pass
+```
+
+### Example 2: Safety-First Architecture Implementation
+A safety-first architecture for cognitive planning:
+
+```python
+class SafetyValidator:
+    def __init__(self):
+        self.safety_rules = self.load_safety_rules()
+
+    def validate_action(self, action: Dict[str, Any],
+                       environment_state: Dict[str, Any]) -> bool:
+        """
+        Validate an action against safety constraints
+        """
+        # Check physical feasibility
+        if not self.check_physical_feasibility(action, environment_state):
+            return False
+
+        # Check safety constraints
+        if not self.check_safety_constraints(action, environment_state):
+            return False
+
+        # Check resource availability
+        if not self.check_resource_availability(action, environment_state):
+            return False
+
+        return True
+
+    def check_safety_constraints(self, action: Dict[str, Any],
+                                environment_state: Dict[str, Any]) -> bool:
+        # Implementation of safety constraint checking
+        # - Collision avoidance
+        # - Joint limit checks
+        # - Payload capacity checks
+        # - Human safety zones
+        pass
+
+class SafeCognitivePlanner:
+    def __init__(self, cognitive_planner: CognitivePlanner,
+                 safety_validator: SafetyValidator):
+        self.cognitive_planner = cognitive_planner
+        self.safety_validator = safety_validator
+
+    def plan_and_execute(self, goal: str, robot_state: Dict[str, Any]) -> bool:
+        # Generate plan
+        plan = self.cognitive_planner.plan_task(goal,
+                                               robot_state['capabilities'],
+                                               robot_state['environment'])
+
+        # Validate each action in the plan
+        for action in plan:
+            if not self.safety_validator.validate_action(action,
+                                                        robot_state['environment']):
+                print(f"Action {action} failed safety validation")
+                return False
+
+            # Execute action
+            success = self.execute_action(action)
+            if not success:
+                return False
+
+        return True
+```
 
 ## Summary
 
