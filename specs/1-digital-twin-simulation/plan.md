@@ -7,55 +7,38 @@
 
 ## Summary
 
-Create Module 2 – Digital Twin (Gazebo & Unity) documentation for AI/software students learning physics-based simulation and digital twin concepts for humanoid robots. This includes three chapters covering physics simulation in Gazebo, environment building with Unity integration, and sensor simulation with ROS 2 data flow. The documentation will be integrated into the Docusaurus site structure as a dedicated module with practical examples and tutorials.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: Markdown for documentation, Python for ROS 2 integration, C# for Unity components, Gazebo XML for robot models
-**Primary Dependencies**: Gazebo simulation engine, Unity 3D engine, ROS 2 (Robot Operating System 2), Docusaurus for documentation
-**Storage**: Docusaurus docs directory for documentation, dedicated simulation asset directories for Gazebo/Unity/ROS 2 files
-**Testing**: Documentation validation through review processes, simulation testing using Gazebo's testing frameworks and ROS 2 tools (rostest)
-**Target Platform**: Linux/Ubuntu for Gazebo and ROS 2, Windows/Mac/Linux for Unity, Web for documentation
-**Project Type**: Documentation and simulation environment (multi-component)
-**Performance Goals**: Documentation loads <3 seconds, Simulation targets real-time factor (RTF) of 0.8+ for interactive learning
-**Constraints**: Minimum 8GB RAM, 4-core CPU (recommended 16GB RAM, 8-core CPU with dedicated GPU), Ubuntu 20.04/22.04 LTS or Windows 10/11
-**Scale/Scope**: Educational module for AI/software students, covering three chapters of digital twin simulation
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-### Compliance Verification
-
-**Spec-Driven Execution**: ✅ PASS - Following the spec from `/specs/1-digital-twin-simulation/spec.md` which clearly defines requirements for digital twin simulation
-
-**Accuracy and No Hallucinations**: ✅ PASS - Documentation will be based on actual Gazebo/Unity/ROS 2 capabilities, not fabricated content
-
-**Developer-Focused Clarity**: ✅ PASS - Will provide clear, testable documentation and examples for students learning digital twin concepts
-
-**Reproducibility and Modular Design**: ✅ PASS - Creating modular documentation structure with clear separation between physics simulation, environment building, and sensor simulation chapters
-
-**RAG-First Architecture**: N/A - This is a documentation/simulation feature, not a chatbot feature
-
-### Post-Design Re-Check
-
-After Phase 1 design completion:
-
-**Spec Compliance**: ✅ PASS - All design decisions align with feature specification requirements
-**Modular Architecture**: ✅ PASS - Documentation structure allows independent development of each chapter
-**Technology Alignment**: ✅ PASS - Selected technologies (Gazebo, Unity, ROS 2, Docusaurus) match requirements
-**Reproducibility**: ✅ PASS - Quickstart guide provides clear setup instructions for consistent reproduction
-
-### Potential Violations
-
-No violations identified. All development follows the spec-driven approach with clear requirements from the feature specification.
+[Gates determined based on constitution file]
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/1-digital-twin-simulation/
+specs/[###-feature]/
 ├── plan.md              # This file (/sp.plan command output)
 ├── research.md          # Phase 0 output (/sp.plan command)
 ├── data-model.md        # Phase 1 output (/sp.plan command)
@@ -64,23 +47,52 @@ specs/1-digital-twin-simulation/
 └── tasks.md             # Phase 2 output (/sp.tasks command - NOT created by /sp.plan)
 ```
 
-### Docusaurus Documentation Structure
+### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
-docs/
-├── modules/
-│   ├── digital-twin/
-│   │   ├── index.md
-│   │   ├── chapter-1-physics-simulation.md
-│   │   ├── chapter-2-environment-simulation.md
-│   │   └── chapter-3-sensor-simulation.md
-│   └── ...
-├── tutorials/
-│   └── ...
-└── ...
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
+
+tests/
+├── contract/
+├── integration/
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: Documentation will be added to the Docusaurus site in a dedicated digital-twin module section with three chapters corresponding to the feature specification requirements.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 

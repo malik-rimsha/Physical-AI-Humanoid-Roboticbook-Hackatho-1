@@ -125,13 +125,13 @@ description: "Task list for Digital Twin Simulation documentation module"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T035 [P] Update navigation and cross-links between chapters
-- [ ] T036 Add comprehensive glossary of terms to index.md
-- [ ] T037 Create summary comparison of Gazebo vs Unity vs ROS 2 capabilities
-- [ ] T038 [P] Add images and diagrams to all chapters for better understanding
-- [ ] T039 Create hands-on project that integrates all three chapters
-- [ ] T040 Update sidebar navigation with proper chapter ordering
-- [ ] T041 Run quickstart.md validation to ensure documentation matches setup
+- [x] T035 [P] Update navigation and cross-links between chapters
+- [x] T036 Add comprehensive glossary of terms to index.md
+- [x] T037 Create summary comparison of Gazebo vs Unity vs ROS 2 capabilities
+- [x] T038 [P] Add images and diagrams to all chapters for better understanding
+- [x] T039 Create hands-on project that integrates all three chapters
+- [x] T040 Update sidebar navigation with proper chapter ordering
+- [x] T041 Run quickstart.md validation to ensure documentation matches setup
 
 ---
 ## Dependencies & Execution Order

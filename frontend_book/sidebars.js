@@ -37,6 +37,25 @@ const sidebars = {
         'modules/digital-twin/chapter-3-sensor-simulation',
       ],
     },
+    {
+      type: 'category',
+      label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac™)',
+      items: [
+        'modules/ai-robot-brain-isaac/index',
+        'modules/ai-robot-brain-isaac/perception-vslam',
+        'modules/ai-robot-brain-isaac/navigation',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Module 4: Vision-Language-Action (VLA) Integration',
+      items: [
+        'modules/vla-integration/index',
+        'modules/vla-integration/vla-foundations',
+        'modules/vla-integration/voice-to-action',
+        'modules/vla-integration/cognitive-planning',
+      ],
+    },
   ],
 
   // But you can create a sidebar manually
