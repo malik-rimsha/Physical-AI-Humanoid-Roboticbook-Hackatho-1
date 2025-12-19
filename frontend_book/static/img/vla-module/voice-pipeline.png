@@ -1,0 +1,1 @@
+This is a placeholder for the voice processing pipeline diagram. In a real implementation, this would be an image file showing the flow from audio input through Whisper transcription to natural language processing, intent classification, and action execution.
