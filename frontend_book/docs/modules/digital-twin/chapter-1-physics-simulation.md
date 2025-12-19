@@ -26,7 +26,7 @@ A complete digital twin system consists of:
 4. **Synchronization Engine**: Keeps both models consistent
 5. **Analytics Layer**: Processes and analyzes data from both models
 
-![Digital Twin Architecture](./assets/digital-twin-architecture.png "Digital Twin Architecture")
+<!-- ![Digital Twin Architecture]( ./assets/digital-twin-architecture.png "Digital Twin Architecture") -->
 
 *Note: This diagram illustrates the key components of a digital twin system and their interconnections.*
 
@@ -56,7 +56,7 @@ To set up physics simulation in Gazebo, you need to:
 3. Set up the environment with appropriate gravity and material properties
 4. Add obstacles and interaction elements
 
-![Gazebo Physics Setup](./assets/gazebo-physics-setup.png "Gazebo Physics Simulation Setup")
+<!-- ![Gazebo Physics Setup]( ./assets/gazebo-physics-setup.png "Gazebo Physics Simulation Setup") -->
 
 *Note: This diagram shows the process of setting up a physics simulation environment in Gazebo.*
 
